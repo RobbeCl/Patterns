@@ -1,5 +1,5 @@
-#ifndef SUBJECT_H_INCLUDED
-#define SUBJECT_H_INCLUDED
+#ifndef PATTERNS_SUBJECT_H
+#define PATTERNS_SUBJECT_H
 
 /**
  * @file Implementation of Subject for observer pattern.
@@ -8,7 +8,6 @@
 #include <functional>
 #include <map>
 #include <memory>
-#include <iostream>
 
 /**
  * @brief A subject can be observed by subclasses of the Observer interface. Subjects call specific methods of the Observer interface you can subscribe to.
@@ -94,4 +93,4 @@ void Subject<Observer>::notify(void (Observer::*f)(Args1...), Args2&&... args){
 	}
 }
 
-#endif
+#endif // PATTERNS_SUBJECT_H

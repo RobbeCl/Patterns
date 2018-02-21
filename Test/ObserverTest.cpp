@@ -24,11 +24,11 @@ public:
 	bool func1Called = false;
 	bool func2Called = false;
 
-	virtual void func1(){;
+	virtual void func1() override{;
 		func1Called = true;
 	}
 
-	virtual void func2(int a, const std::string& b){
+	virtual void func2(int a, const std::string& b) override{
 		ASSERT_EQ(a, 42);
 		ASSERT_EQ(b, "test");
 		func2Called = true;

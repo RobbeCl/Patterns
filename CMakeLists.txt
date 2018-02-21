@@ -11,10 +11,11 @@ include_directories(lib/googletest/googlemock/include)
 
 set(SOURCE_FILES
         main.cpp
-)
+        include/Builder.h)
 
 set(SOURCE_FILES_TESTING
         Test/ObserverTest.cpp
+        Test/BuilderTest.cpp
 )
 
 add_executable(patterns ${SOURCE_FILES})
