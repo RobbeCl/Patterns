@@ -7,48 +7,48 @@
 
 #include "Subject.h"
 
-class Topic{
+class EventObserver{
 public:
-	virtual void func1(){};
-	virtual void func2(int a, const std::string& b)=0;
+	virtual void event1(){};
+	virtual void event2(int a, const std::string &b)=0;
 };
 
-class ActualSubject: public Subject<Topic>{
+class MySubject: public Subject<EventObserver>{
 public:
-	void callFunc1(){notify(&Topic::func1);}
-	void callFunc2(){notify(&Topic::func2, 42, "test");}
+	void fireEvent1(){notify(&EventObserver::event1);}
+	void fireEvent2(){notify(&EventObserver::event2, 42, "test");}
 };
 
-class Observer: public Topic{
+class MyObserver: public EventObserver{
 public:
-	bool func1Called = false;
-	bool func2Called = false;
+	bool event1Fired = false;
+	bool event2Fired = false;
 
-	virtual void func1() override{;
-		func1Called = true;
+	virtual void event1() override{
+		event1Fired = true;
 	}
 
-	virtual void func2(int a, const std::string& b) override{
+	virtual void event2(int a, const std::string &b) override{
 		ASSERT_EQ(a, 42);
 		ASSERT_EQ(b, "test");
-		func2Called = true;
+		event2Fired = true;
 	}
 };
 
 // Test if message is received.
 TEST(OBS_Subject, test){
-	ActualSubject subject;
-	std::shared_ptr<Observer> observer = std::make_shared<Observer>();
+	MySubject subject;
+	std::shared_ptr<MyObserver> observer = std::make_shared<MyObserver>();
 	subject.registerObserver(observer);
 
-	ASSERT_FALSE(observer->func1Called);
-	ASSERT_FALSE(observer->func2Called);
+	ASSERT_FALSE(observer->event1Fired);
+	ASSERT_FALSE(observer->event2Fired);
 
-	subject.callFunc1();
-	ASSERT_TRUE(observer->func1Called);
-	ASSERT_FALSE(observer->func2Called);
+	subject.fireEvent1();
+	ASSERT_TRUE(observer->event1Fired);
+	ASSERT_FALSE(observer->event2Fired);
 
-	subject.callFunc2();
-	ASSERT_TRUE(observer->func1Called);
-	ASSERT_TRUE(observer->func2Called);
+	subject.fireEvent2();
+	ASSERT_TRUE(observer->event1Fired);
+	ASSERT_TRUE(observer->event2Fired);
 }
