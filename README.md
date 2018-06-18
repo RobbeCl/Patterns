@@ -3,7 +3,7 @@ C++ Design Patterns
 
 ### Creational Patters
 ##### Singleton
-TODO Robbe
+Done
 ##### Abstract Factory
 TODO
 ##### Builder
